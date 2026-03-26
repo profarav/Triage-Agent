@@ -108,7 +108,7 @@ export default function App() {
     setError(null);
     setResult(null);
     try {
-      const res = await fetch('http://localhost:5001/api/triage', {
+      const res = await fetch('/api/triage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ticket: ticket.trim() }),
