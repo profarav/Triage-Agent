@@ -3,7 +3,7 @@ import './App.css';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Category = 'billing' | 'technical' | 'account' | 'feature_request';
+type Category = 'pricing_inquiry' | 'delivery_exception' | 'client_onboarding' | 'route_network' | 'billing_dispute';
 type Urgency = 'P1' | 'P2' | 'P3';
 
 interface TriageResult {
@@ -24,49 +24,51 @@ interface QueueItem extends TriageResult {
 
 const EXAMPLES = [
   {
-    label: 'Audio Failure',
+    label: 'Volume Discount',
     ticket:
-      "My team can't hear each other on the channel during our warehouse shift. We have 12 workers who rely on Zello for coordination and this started 2 hours ago. We're missing packages because we can't communicate. Need immediate help.",
+      "We're shipping around 4,000 parcels/month and our current rate card isn't competitive anymore. Can we get a revised quote for a 12-month volume commitment? We need this before our contract renewal meeting on Friday.",
   },
   {
-    label: 'Add 20 Users',
+    label: 'Shipment Stuck',
     ticket:
-      'We need to add 20 new users to our enterprise account. Our company is expanding and we need the new field team onboarded by Monday morning. Can you help us with the upgrade process and confirm pricing for additional licenses?',
+      "One of our highest-value clients has a pallet of 200 units sitting at the Chicago hub for 4 days — it was supposed to deliver last Monday. They're threatening to pull their account. Need escalation immediately.",
   },
   {
-    label: 'WiFi/LTE Drops',
+    label: 'New Client Go-Live',
     ticket:
-      'The app keeps disconnecting when switching between WiFi and LTE. This happens to all 5 of our delivery drivers throughout the day, every time they leave a depot. Very disruptive to our delivery operations.',
+      'We have a new retail client, Meridian Home Goods, that needs to go live on our shipping platform by next Wednesday. Their IT team is ready for the API integration but we still need account credentials and rate setup from your side.',
   },
   {
-    label: 'Double Charge',
+    label: 'Invoice Dispute',
     ticket:
-      'I was charged twice for my monthly subscription this billing cycle — two identical $49.99 charges on March 1st. Please review my account and issue a refund for the duplicate. Account: ops@company.com.',
+      "There are 17 fuel surcharge line items on last month's invoice that we weren't notified about in advance. The total discrepancy is $2,340. We need these reviewed and credited before we process payment.",
   },
   {
-    label: 'Record Channels',
+    label: 'Hub Capacity Issue',
     ticket:
-      'Would Zello support recording channel conversations and auto-exporting them? Our legal team requires retention of all communications for 7 years per compliance regulations. Is this on your roadmap?',
+      'Our shipments out of the Dallas-Fort Worth lane have been running 2-3 days behind SLA for the past two weeks. Is there a capacity constraint at the DFW hub? We need to know if we should reroute through another carrier for now.',
   },
   {
-    label: 'Login Outage',
+    label: 'Rate Card Request',
     ticket:
-      "None of our 8 dispatchers can log in this morning. We're a security company and our night shift can't hand off to day shift. This is actively affecting operations and potentially compromising site security.",
+      "Can you send over a current rate card for ground parcel delivery across the Midwest region? We're putting together a bid for a new client and need ballpark figures for zones 2-5.",
   },
 ];
 
 const CATEGORY_LABELS: Record<Category, string> = {
-  billing: 'Billing',
-  technical: 'Technical',
-  account: 'Account',
-  feature_request: 'Feature Request',
+  pricing_inquiry: 'Pricing Inquiry',
+  delivery_exception: 'Delivery Exception',
+  client_onboarding: 'Client Onboarding',
+  route_network: 'Route / Network',
+  billing_dispute: 'Billing Dispute',
 };
 
 const CATEGORY_COLORS: Record<Category, string> = {
-  billing: '#a855f7',
-  technical: '#3b82f6',
-  account: '#14b8a6',
-  feature_request: '#f59e0b',
+  pricing_inquiry: '#a855f7',
+  delivery_exception: '#ef4444',
+  client_onboarding: '#3b82f6',
+  route_network: '#14b8a6',
+  billing_dispute: '#f59e0b',
 };
 
 const URGENCY_COLORS: Record<Urgency, string> = {
@@ -175,8 +177,8 @@ export default function App() {
             </svg>
           </div>
           <div className="brand-text">
-            <span className="brand-name">ZELLO</span>
-            <span className="brand-sub">SUPPORT TRIAGE COMMAND</span>
+            <span className="brand-name">SPEEDX</span>
+            <span className="brand-sub">COMMERCIAL OPS TRIAGE</span>
           </div>
         </div>
 
@@ -234,7 +236,7 @@ export default function App() {
             className="ticket-area"
             value={ticket}
             onChange={e => setTicket(e.target.value)}
-            placeholder="Paste a support ticket here, or select an example above…&#10;&#10;⌘+Enter to triage"
+            placeholder="Paste a ticket here, or select an example above…&#10;&#10;⌘+Enter to triage"
             onKeyDown={e => {
               if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') handleTriage();
             }}
